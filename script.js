@@ -30,19 +30,57 @@ const charArray = allChars.split('');
 const generate_btn = document.getElementById('btn')
 const pass1 = document.getElementById('first')
 const pass2 = document.getElementById('second')
-const length = 15
-
+const length_el = document.getElementById('len')
+const copy1 = document.getElementById('cpy1')
+const copy2 = document.getElementById('cpy2')
 generate_btn.addEventListener('click',function(){
-   pass1.textContent = getRandomPass()
-   pass2.textContent = getRandomPass()
+    
+    pass1.textContent = getRandomPass()
+    pass2.textContent = getRandomPass()
 })
-function getRandomChar(len){
+function getRandomChar(){
     return charArray[Math.floor(Math.random()*charArray.length)]
 }
 function getRandomPass(){
+    const length = parseInt(length_el.value,10)
     let arr = ""
-    for(let i = 0;i<15;i++){
-        arr += getRandomChar(length)
+    for(let i = 0;i<length;i++){
+        arr += getRandomChar()
     }
     return arr
 }
+// function generateStrongPassword() {
+//     const length = parseInt(length_el.textContent, 10);
+//     let passwordArray = [];
+
+//     // 1. Add one of each required character type
+//     passwordArray.push(lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)]);
+//     passwordArray.push(uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)]);
+//     passwordArray.push(numberChars[Math.floor(Math.random() * numberChars.length)]);
+//     passwordArray.push(specialChars[Math.floor(Math.random() * specialChars.length)]);
+
+//     // 2. Fill the rest of the password with random characters
+//     for (let i = passwordArray.length; i < length; i++) {
+//         passwordArray.push(getRandomChar());
+//     }
+
+//     // 3. Shuffle the array to randomize the order of characters
+//     for (let i = passwordArray.length - 1; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1));
+//         // Swap elements
+//         [passwordArray[i], passwordArray[j]] = [passwordArray[j], passwordArray[i]];
+//     }
+
+//     return passwordArray.join('');
+// }
+
+// In your event listener, you would call this new function:
+// pass1.textContent = generateStrongPassword();
+copy1.addEventListener('click',async function(){
+    await navigator.clipboard.writeText(pass1.textContent);
+    alert('Text copied to clipboard!');
+})
+copy2.addEventListener('click',async function(){
+    await navigator.clipboard.writeText(pass2.textContent);
+    alert('Text copied to clipboard!');
+})
